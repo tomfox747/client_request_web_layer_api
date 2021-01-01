@@ -1,6 +1,6 @@
-const http = require('http')
+const http = require('http');
 
-const getRequest = async (url, params, body) =>{
+const getRequest = (url, params, body) =>{
     return new Promise((resolve, reject) =>{
         http.get(url, (res) =>{
             res.setEncoding('utf8');
