@@ -1,30 +1,55 @@
 const http = require('./httpRequest_service');
 const get = http.get;
 const post = http.post;
-const {getError} = require('../utilities/errorHandler')
+const axios = require('axios');
+const {getError} = require('../utilities/errorHandler');
+const { response } = require('express');
 const fileName = 'data_request_service';
 
-const get_data_by_building_code = async () =>{
+const Get_building_info_by_building_id = async (buildingId) =>{
     try{
-        const response = await get('http://localhost:8081/inner/data/get_data_by_building_code')
-        return response;
+        let params = {
+            buildingId:buildingId
+        }
+        let result = await get('http://localhost:8081/inner/data/get_building_info_by_building_id', params)
+        return result;
     }catch(e){
-        return getError(e,e.code,fileName, 'get_data_by_building_code');
+        return getError(e,e.code,fileName, 'get_building_info_by_building_id');
     }
 }
 
-const get_data_by_room_code = async () =>{
+const Get_rooms_by_building_id = async (buildingId) =>{
     try{
-        const response = await get('http://localhost:8081/inner/data/get_data_by_room_code')
+        let params = {
+            buildingId:buildingId
+        }
+        const response = await get('http://localhost:8081/inner/data/get_rooms_by_building_id', params);
         return response;
     }catch(e){
-        return getError(e,e.code,fileName, 'get_data_by_room_code');
+        console.log(e)
+        return getError(e,e.code,fileName, 'get_rooms_by_building_id');
     }
 }
 
-const get_data_by_sensor_code = async () =>{
+const Get_sensors_by_building_id = async (buildingId) =>{
     try{
-        const response = await get('http://localhost:8081/inner/data/get_data_by_sensor_code')
+        let params={
+            buildingId:buildingId
+        }
+        const response = await get('http://localhost:8081/inner/data/get_sensors_by_building_id',params);
+        return response;
+    }catch(e){
+        return getError(e,e.code, fileName, 'get_data_by_sensor_code');
+    }
+}
+
+const Get_room = async (buildingId, roomId) =>{
+    try{
+        let params = {
+            buildingId: buildingId,
+            roomId: roomId
+        }
+        const response = await get('http://localhost:8081/inner/data/get_room', params);
         return response;
     }catch(e){
         return getError(e,e.code, fileName, 'get_data_by_sensor_code');
@@ -32,7 +57,8 @@ const get_data_by_sensor_code = async () =>{
 }
 
 module.exports = {
-    Get_data_by_building_code: get_data_by_building_code,
-    Get_data_by_room_code: get_data_by_room_code,
-    Get_data_by_sensor_code: get_data_by_sensor_code
+    Get_building_info_by_building_id,
+    Get_rooms_by_building_id,
+    Get_sensors_by_building_id,
+    Get_room
 }
