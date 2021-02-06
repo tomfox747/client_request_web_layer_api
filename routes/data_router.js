@@ -41,6 +41,21 @@ router.get('/get_sensors_by_building_id', async (req,res) =>{
     }
 })
 
+router.get('/get_sensors_by_room_id', async (req,res) =>{
+    try{
+        let params = {
+            buildingId:req.query.buildingId,
+            roomId: req.query.roomId
+        }
+        const reponse = await data_request_service.Get_sensors_by_room_id(buildingId, roomId)
+        res.send(response)
+    }catch(e){
+        const err = getError(e,e.code,fileName,'get_sensors_by_room_id')
+        const returnError = generateReturnError(err)
+        res.send(returnError)
+    }
+})
+
 router.get('/get_room', async (req,res) =>{
     try{
         let buildingId = req.query.buildingId

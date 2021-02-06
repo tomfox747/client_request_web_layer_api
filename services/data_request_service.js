@@ -43,6 +43,19 @@ const Get_sensors_by_building_id = async (buildingId) =>{
     }
 }
 
+const Get_sensors_by_room_id = async (buildingId, roomId) =>{
+    try{
+        let params={
+            buildingId:buildingId,
+            roomId:roomId
+        }
+        const response = await get('http://localhost:8081/inner/data/get_sensors_by_building_id',params);
+        return response
+    }catch(e){
+        return getError(e,e.codem, fileName, 'get_data_by_sensor_code');
+    }
+}
+
 const Get_room = async (buildingId, roomId) =>{
     try{
         let params = {
@@ -60,5 +73,6 @@ module.exports = {
     Get_building_info_by_building_id,
     Get_rooms_by_building_id,
     Get_sensors_by_building_id,
+    Get_sensors_by_room_id,
     Get_room
 }

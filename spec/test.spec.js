@@ -6,7 +6,7 @@ describe("get data requests --- ", () =>{
     let get_rooms_by_building_id = {}
     let get_sensors_by_building_id = {}
     let get_room = {}
-
+ 
     beforeAll((done) =>{
         request.get("http://localhost:8080/web/data/get_building_info_by_building_id",(error,response,body) =>{
             get_building_info_by_building_id.status = response.statusCode
