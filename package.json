@@ -24,6 +24,7 @@
     "jasmine": "^3.6.4",
     "jasmine-node": "^3.0.0",
     "jasmine-ts-console-reporter": "^3.1.1",
+    "mongoose": "^5.11.17",
     "nodemon": "^2.0.6",
     "request": "^2.88.2"
   }
