@@ -17,22 +17,21 @@ const authOrigin = async (req,res,next) =>{
         process.exit(0);
     });
 
-    const schema = new mongoose.Schema({
-        origin:String,
+    const schema = mongoose.Schema({
+        origin:String
     }) 
     const OriginModel = mongoose.model('clientexternalorigins', schema);
 
     const response = await OriginModel.find({}).lean().exec();
     
-    if(response.filter(element => element.origin === ip)){
+    if(response.filter(element => element.origin === ip).length > 0){
         console.log("request origin authorized")
+        next();
     }else{
         console.log("request origin unauthorized")
         res.send("Client machine is not authorized to make requests")
     }
     delete mongoose.connection.models['clientexternalorigins'];
-
-    next();
 }
 
 module.exports = authOrigin
